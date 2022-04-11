@@ -1,0 +1,165 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.Register {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerForm {
+    width: 50% !important;
+    height: 50%;
+    background: #bfc2c736;
+    padding: 50px 100px !important;
+}
+
+.textInput {
+    height: 38px;
+    width: 100%;
+    font-size: 15px;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.mainError {
+    height: 17px;
+}
+
+.menu_style {
+    width: 100%;
+    height: 80px;
+    background-color: #174455;
+    display: flex;
+    padding: 20px 0 25px;
+}
+
+a.active_class {
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.contact {
+    margin-top: 100px !important;
+    background-color: white;
+    width: 100% !important;
+    padding: 20px;
+    margin: auto;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+
+/* .container{
+    width: 50%;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+   
+   }  */
+
+.heading {
+    margin: 75px;
+}
+
+.bg {
+    justify-content: center;
+    font-weight: lighter;
+}
+
+li a,
+.dropbtn {
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    text-align: left;
+    /* height: 90px !important; */
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+ul {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    vertical-align: middle;
+}
+
+ul#nlist {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+ul#nlist li {
+    display: inline;
+}

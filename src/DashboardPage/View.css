@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    background: #333;
+}
+
+.rounded-img {
+    width: 30%;
+    height: auto;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.9s ease 0s;
+}
+
+.users-list-wrapper {
+    padding: 1vw;
+    margin: 5vw -50vw -1vw 1vw;
+    background-color: white;
+    flex-basis: 38%;
+    flex-grow: 0;
+    flex-direction: row;
+    height: 500px;
+}
+
+.users-list {
+    display: flex;
+}
+
+hr {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.users-list .user-details {
+    flex-basis: 75%;
+    padding-top: 70px;
+    margin-left: -100px;
+}
+
+.users-list .user-img {
+    flex-basis: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

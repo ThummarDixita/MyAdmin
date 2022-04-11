@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+}
+
+.card {
+    margin-top: 200px !important;
+    background-color: white;
+    max-width: 680px;
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.Login {
+    padding: 15px;
+    /* text-align: center; */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.loginForm {
+    width: 35% !important;
+    height: 50%;
+    background-color: #bfc2c736;
+    padding: 50px 100px !important;
+}
+
+input {
+    display: flex;
+    width: 100%;
+    height: 37px;
+    font-size: 15px !important;
+}
+
+.editUser {
+    height: 350px;
+    width: 100%;
+    padding: 30px;
+}
+
+.mainClass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.close {
+    display: flex;
+    justify-content: end;
+}
+
+.btn {
+    display: flex;
+    justify-content: end;
+}
+
+
+/*   
+    &:after, &:before {
+      
+      content:"";
+      height:20px;
+      width:20px;
+      border-top:1px solid #000;
+      position:absolute;
+      top:7px;
+      right:-8px;
+      @include rotate(-45deg);
+    
+    }
+        
+    &:before {
+          
+      right:6px;
+      @include rotate(45deg);
+    
+    }
+    
+    &:hover {
+           
+      @include opacity(0.3);
+      
+    }
+    
+  } */

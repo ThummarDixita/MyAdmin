@@ -3,8 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import { Button, ModalBody, ModalFooter } from "reactstrap";
 
 const DeleteModal = props => {
-    console.log("props",props);
-        return (
+    console.log("props", props);
+    return (
         <>
             <Modal show={props.showDeleteModal} onHide={props.onHide} style={{ opacity: 1 }} dialogclassNameName="my-dialog">
                 <div className="modal-content">

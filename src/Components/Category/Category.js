@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useState, useEffect, forwardRef } from 'react'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
@@ -21,6 +22,7 @@ import { MuiThemeProvider } from '@material-ui/core'
 import Navbar from '../Navbar/Navbar'
 import DeleteModal from '../common/DeleteModel'
 import { ToastContainer, toast } from 'react-toastify';
+import { API } from '../config/Config'
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -62,7 +64,7 @@ function Category() {
     }, []);
 
     const getData = async () => {
-        const result = await axios.get("https://nodehostheroku.herokuapp.com/category")
+        const result = await axios.get(API)
         console.log("result", result);
         setData(result.data)
 
@@ -85,11 +87,11 @@ function Category() {
             setUserIdToDelete("")
             console.log("userIdToDelete", userIdToDelete);
             axios
-                .delete(`https://nodehostheroku.herokuapp.com/category/${userIdToDelete}`)
+                .delete(`${API}/${userIdToDelete}`)
                 .then(res => {
                     if (res && res.status === 200) {
                         setDeleteShowModal(false)
-                        toast.success('User Delete Successfully.')
+                        toast.success('Category Delete Successfully.')
                         setReloadListing(reloadListing + 1)
                         getData()
                     }
@@ -105,49 +107,66 @@ function Category() {
     return (
         <div>
             <Navbar />
-            <DeleteModal
-                showDeleteModal={showDeleteModal}
-                onHide={hideDeleteModal}
-                clickedNo={hideDeleteModal}
-                clickedYes={removeData}
-            />
-            <div className='container mt-3'>
-                <ToastContainer />
-                <MuiThemeProvider /* theme={theme} */>
-                    <MaterialTable
-                        icons={tableIcons}
-                        title='category'
-                        columns={fieldLabel}
-                        data={data}
-                        options={{
-                            filtering: true,
-                            paging: true,
-                            paginationType: 'stepped',
-                            pageSize: 10,
-                            actionsColumnIndex: -1,
-                            pageSizeOptions: [10, 20, 30]
-                        }}
-                        actions={[
-                            // {
-                            //     icon: VisibilityIcon,
-                            //     tooltip: 'View',
-                            //     onClick: (event, rowData) => {
-                            //         // handleShowDetails(rowData.id)
-                            //     }
-                            // },
-                            {
-                                icon: DeleteOutline,
-                                tooltip: 'Delete',
-                                onClick: (event, rowData) => {
-                                    handleRemoveUser(rowData._id)
+            <div className='displayCard'>
+                <div className='cardTitle'>
+                    <Link to="/addcategory">
+                        <button
+                            style={{ float: "right", margin: "20px" , marginRight:"8vh"}}
+                            title="Add Category"
+                            className="btn btn-success"
+                        >Add Category</button>
+                    </Link>
+                </div>
+                <DeleteModal
+                    showDeleteModal={showDeleteModal}
+                    onHide={hideDeleteModal}
+                    clickedNo={hideDeleteModal}
+                    clickedYes={removeData}
+                />
+                <div className='container mt-2' style={{ width: '100%' }}>
+
+                    <ToastContainer />
+                    <MuiThemeProvider /* theme={theme} */>
+                        <MaterialTable
+                            icons={tableIcons}
+                            title='category'
+                            columns={fieldLabel}
+                            data={data}
+                            options={{
+                                filtering: true,
+                                paging: true,
+                                paginationType: 'stepped',
+                                pageSize: 10,
+                                actionsColumnIndex: -1,
+                                pageSizeOptions: [10, 20, 30]
+                            }}
+                            actions={[
+                                // {
+                                //     icon: VisibilityIcon,
+                                //     tooltip: 'View',
+                                //     onClick: (event, rowData) => {
+                                //         // handleShowDetails(rowData.id)
+                                //     }
+                                // },
+                                {
+                                    icon: DeleteOutline,
+                                    tooltip: 'Delete',
+                                    onClick: (event, rowData) => {
+                                        handleRemoveUser(rowData._id)
+                                    }
                                 }
-                            }
-                        ]}
-                    />
-                </MuiThemeProvider>
+                            ]}
+                        />
+                    </MuiThemeProvider>
+
+                </div>
 
             </div>
+
         </div>
+
+
+
     )
 }
 

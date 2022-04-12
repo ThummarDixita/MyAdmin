@@ -13,6 +13,7 @@ import Logout from './Components/Logout';
 import Category from './Components/Category/Category';
 import EditUser from './DashboardPage/EditUser';
 import ViewData from './DashboardPage/ViewData';
+import AddCategory from './Components/Category/AddCategory';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/view/:id" element={<ViewData />} />
           <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
           <Route path="/category" element={<PrivateRoute>  <Category /> </PrivateRoute>} />
+          <Route path="/addcategory" element={<PrivateRoute><AddCategory /></PrivateRoute>} />
         </Routes>
       </BrowserRouter>
     </div>

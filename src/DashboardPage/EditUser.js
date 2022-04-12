@@ -4,6 +4,9 @@ import '../Components/Login.css'
 import { Button } from 'react-bootstrap';
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import { URL } from '../Components/config/Config';
+import { FiCheckSquare } from 'react-icons/fi'
+import { MdOutlineCancel } from 'react-icons/md'
 
 const EditUser = (props) => {
     const { editData, setEditData } = props
@@ -22,20 +25,24 @@ const EditUser = (props) => {
         setObj({ ...obj, [name]: value })
     }
 
-    const handleSubmit = () => {
-        if(obj.phoneNumber !== "" && obj.password !== ""){
+    const handleSubmit = async () => {
+        if (obj.phoneNumber !== "" && obj.password !== "") {
             let header = { mobile_number: obj.phoneNumber, password: obj.password }
-            axios.put(`https://nodehostheroku.herokuapp.com/register/${id}`, header)
-                .then((res) => {
-                    toast.error(res.data.message)
-                    console.log("++++++++++", res);
-                    if (res.data.mobile_number && res.data.password) {
-                        toast.success("Edit Data Successfully");
-                        setEditData('')
+            try {
+                await axios.put(`${URL}/${id}`, header)
+                    .then((res) => {
+                        toast.error(res.data.message)
+                        console.log("++++++++++", res);
+                        if (res.data.mobile_number && res.data.password) {
+                            toast.success("Edit Data Successfully");
+                            setEditData('')
+                        }
                     }
-                }
-                )
-        }else{
+                    )
+            } catch (error) {
+                console.log("+++++++++error", error);
+            }
+        } else {
             toast.error("Please Enter Data")
         }
 
@@ -69,8 +76,8 @@ const EditUser = (props) => {
                         <input type="password" name='password' value={obj.password} onChange={handleChange} />
                     </div>
                     <div className="col-12 m-1 mainClass">
-                        <Button type="button" variant="secondary" onClick={(e) => setEditData('')} style={{ marginRight: '5px' }}>Cancel</Button>
-                        <Button type="button" variant="success" onClick={(e)=> handleSubmit(e)} style={{ marginLeft: '5px' }}>Submit</Button>
+                        <Button type="button" variant="success" onClick={(e) => handleSubmit(e)} style={{ marginRight: '5px', fontSize: '16px' }}><FiCheckSquare style={{ fontSize: '16px' }} /> Submit</Button>
+                        <Button type="button" variant="secondary" onClick={(e) => setEditData('')} style={{ marginLeft: '5px', fontSize: '16px' }}><MdOutlineCancel style={{ fontSize: '16px' }} /> Cancel</Button>
                     </div>
                 </div>
             </Modal >

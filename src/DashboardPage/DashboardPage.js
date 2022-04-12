@@ -23,6 +23,7 @@ import { MuiThemeProvider } from '@material-ui/core'
 import { ToastContainer, toast } from 'react-toastify';
 import DeleteModal from '../Components/common/DeleteModel';
 import EditUser from './EditUser';
+import { URL } from '../Components/config/Config';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -81,7 +82,7 @@ function DashboardPage() {
     if (userIdToDelete && userIdToDelete !== "") {
       setUserIdToDelete("")
       axios
-        .delete(`https://nodehostheroku.herokuapp.com/register/${userIdToDelete}`)
+        .delete(`${URL}/${userIdToDelete}`)
         .then(res => {
           if (res && res.status === 200) {
             setDeleteShowModal(false)
@@ -102,7 +103,6 @@ function DashboardPage() {
 
   const handleEditUser = (data) => {
     setShowEditModal(true)
-    console.log("idddddddd", data._id);
     setIsEdit({ id: data._id, state: data })
     // return navigate(`/edit/${data._id}`,{state:data})
   }
@@ -115,7 +115,7 @@ function DashboardPage() {
     let offset = query.page * query.pageSize
     console.log("offsetoffsetoffsetoffset", offset);
     console.log(`https://nodehostheroku.herokuapp.com/register?limit=${limit}&offset=${offset}`);
-    const res = await axios.get(`https://nodehostheroku.herokuapp.com/register?limit=${limit}&offset=${offset}`)
+    const res = await axios.get(`${URL}?limit=${limit}&offset=${offset}`)
     if (res?.data?.data) {
       console.log("res.datares.datares.datares.data", res.data);
       count = res.data.count
@@ -145,7 +145,7 @@ function DashboardPage() {
         />
       }
 
-      <div className='container mt-3'>
+      <div className='container' style={{ marginTop: '60px' }}>
         <ToastContainer />
         <MuiThemeProvider /* theme={theme} */>
           <MaterialTable

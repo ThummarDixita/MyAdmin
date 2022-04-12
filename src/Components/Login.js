@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNavigate, Navigate } from 'react-router-dom'
 import Navbar from './Navbar/Navbar'
 import { ToastContainer, toast } from 'react-toastify';
+import { URL } from './config/Config'
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -53,7 +54,7 @@ function Login() {
         }
         if (flag) {
             let header = { mobile_number: obj.phoneNumber, password: obj.password }
-            axios.post("https://nodehostheroku.herokuapp.com/register", header)
+            axios.post(URL, header)
                 .then((res) => {
                     toast.error(res.data.message)
                     console.log("++++++++++", res);
@@ -88,7 +89,7 @@ function Login() {
             <div className='card'>
                 <form>
                     <div className='d-flex justify-content-center mb-2'>
-                        <i style={{ fontSize: '25px' , fontWeight : '600'}}>Login</i>
+                        <i style={{ fontSize: '25px', fontWeight: '600' }}>Login</i>
                     </div>
                     <div className="col-12 mb-1">
                         <label className='title'>Phone Number : </label>
@@ -106,7 +107,7 @@ function Login() {
                         {errorMessage.password !== "" && <div className='errorMessage'>{errorMessage.password}</div>}
                     </div>
                     <div className='d-flex justify-content-center mt-4'>
-                        <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+                        <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Sign in</button>
                     </div>
 
                 </form>

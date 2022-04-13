@@ -47,18 +47,18 @@ const tableIcons = {
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
-  VisibilityIcon: forwardRef((props, ref) => (
-    <VisibilityIcon {...props} ref={ref} />
-  ))
+  VisibilityIcon: forwardRef((props, ref) => (<VisibilityIcon {...props} ref={ref} />))
 }
 
 function DashboardPage() {
-  const [userIdToDelete, setUserIdToDelete] = useState()
+  const [userIdToDelete, setUserIdToDelete] = useState("")
   const [reloadListing, setReloadListing] = useState(0)
   const [showDeleteModal, setDeleteShowModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
   const [isEdit, setIsEdit] = useState('')
   const navigate = useNavigate()
+  let token = JSON.parse(localStorage.getItem('Login'))
+  console.log("token", token);
 
   const fieldLabel = [
     { title: 'UserName.', field: 'username' },
@@ -66,23 +66,21 @@ function DashboardPage() {
     { title: 'Password', field: 'password' }
   ]
 
-
   const handleRemoveUser = (id) => {
     setDeleteShowModal(true)
     setUserIdToDelete(id);
   }
 
   const hideDeleteModal = () => {
-    setDeleteShowModal(false)
     setUserIdToDelete("")
+    setDeleteShowModal(false)
   }
-
 
   const removeData = () => {
     if (userIdToDelete && userIdToDelete !== "") {
       setUserIdToDelete("")
       axios
-        .delete(`${URL}/${userIdToDelete}`)
+        .delete(`${URL}/register/${userIdToDelete}`)
         .then(res => {
           if (res && res.status === 200) {
             setDeleteShowModal(false)
@@ -113,11 +111,15 @@ function DashboardPage() {
     let resp = true
     let count = 0;
     let offset = query.page * query.pageSize
-    console.log("offsetoffsetoffsetoffset", offset);
-    console.log(`https://nodehostheroku.herokuapp.com/register?limit=${limit}&offset=${offset}`);
-    const res = await axios.get(`${URL}?limit=${limit}&offset=${offset}`)
+    let header = {}
+    // console.log(`https://nodehostheroku.herokuapp.com/register?limit=${limit}&offset=${offset}`);
+    const res = await axios.get(`${URL}/register?limit=${limit}&offset=${offset}`, {
+      headers: {
+        'x-access-token': token
+      }
+    })
+    console.log("ressss", res);
     if (res?.data?.data) {
-      console.log("res.datares.datares.datares.data", res.data);
       count = res.data.count
       resp = {
         data: res.data.data,
@@ -131,65 +133,64 @@ function DashboardPage() {
   return (
     <div>
       <Navbar />
-      <DeleteModal
-        showDeleteModal={showDeleteModal}
-        onHide={hideDeleteModal}
-        clickedNo={hideDeleteModal}
-        clickedYes={removeData}
-      />
-      {isEdit &&
-        <EditUser
-          showEditModal={showEditModal}
-          editData={isEdit}
-          setEditData={setIsEdit}
+      <div className='displayCard'>
+        <DeleteModal
+          showDeleteModal={showDeleteModal}
+          onHide={hideDeleteModal}
+          clickedNo={hideDeleteModal}
+          clickedYes={removeData}
         />
-      }
-
-      <div className='container' style={{ marginTop: '60px' }}>
-        <ToastContainer />
-        <MuiThemeProvider /* theme={theme} */>
-          <MaterialTable
-            key={reloadListing}
-            icons={tableIcons}
-            title='Person Data'
-            columns={fieldLabel}
-            data={(query) => getPageWiseData(query)}
-            options={{
-              filtering: true,
-              paging: true,
-              paginationType: 'stepped',
-              pageSize: 10,
-              actionsColumnIndex: -1,
-              pageSizeOptions: [10, 20, 30]
-            }}
-            actions={[
-              {
-                icon: VisibilityIcon,
-                tooltip: 'View',
-                onClick: (event, rowData) => {
-                  handleShowDetails(rowData)
-                }
-              },
-              {
-                icon: EditRounded,
-                tooltip: 'Edit',
-                onClick: (event, rowData) => {
-                  console.log("rowData", rowData);
-                  handleEditUser(rowData)
-                }
-              },
-              {
-                icon: DeleteOutline,
-                tooltip: 'Delete',
-                onClick: (event, rowData) => {
-                  handleRemoveUser(rowData._id)
-                }
-              }
-            ]}
+        {isEdit &&
+          <EditUser
+            showEditModal={showEditModal}
+            editData={isEdit}
+            setEditData={setIsEdit}
           />
-        </MuiThemeProvider>
-
-
+        }
+        <div className='container' style={{ marginTop: '60px' }}>
+          <ToastContainer />
+          <MuiThemeProvider /* theme={theme} */>
+            <MaterialTable
+              key={reloadListing}
+              icons={tableIcons}
+              title='Person Data'
+              columns={fieldLabel}
+              data={(query) => getPageWiseData(query)}
+              options={{
+                filtering: true,
+                paging: true,
+                paginationType: 'stepped',
+                pageSize: 10,
+                actionsColumnIndex: -1,
+                pageSizeOptions: [10, 20, 30]
+              }}
+              actions={[
+                {
+                  icon: VisibilityIcon,
+                  tooltip: 'View',
+                  onClick: (event, rowData) => {
+                    handleShowDetails(rowData)
+                  }
+                },
+                {
+                  icon: EditRounded,
+                  tooltip: 'Edit',
+                  onClick: (event, rowData) => {
+                    console.log("rowData", rowData);
+                    handleEditUser(rowData)
+                  }
+                },
+                {
+                  icon: DeleteOutline,
+                  tooltip: 'Delete',
+                  onClick: (event, rowData) => {
+                    handleRemoveUser(rowData._id)
+                  }
+                }
+              ]}
+            />
+          </MuiThemeProvider>
+        </div>
       </div>
     </div>
   )

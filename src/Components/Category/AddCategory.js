@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FiCheckSquare } from 'react-icons/fi';
 import { ImCancelCircle } from 'react-icons/im';
 
-
 function AddCategory() {
     const [obj, setObj] = useState({
         category: ""
@@ -17,7 +16,6 @@ function AddCategory() {
         category: ""
     })
     const navigate = useNavigate()
-
 
     const handleChange = (e) => {
         let { name, value } = e.target
@@ -41,9 +39,7 @@ function AddCategory() {
         if (flag) {
             let header = { category: obj.category }
             axios.post(API, header).then((res) => {
-                console.log("ress++++", res);
                 toast.error(res.data.message)
-                console.log("++++++++++", res?.data?.data[0]);
                 if (res?.data?.data[0]) {
                     toast.success("Category Added Successfull");
                     setTimeout(() => {
@@ -79,7 +75,6 @@ function AddCategory() {
                             <button type="submit" className="btn btn-secondary" style={{ marginLeft: "5px" }}><ImCancelCircle style={{ fontSize: '17px' }} /> Cancel</button>
                         </Link>
                     </div>
-
                 </form>
             </div>
         </div>

@@ -11,10 +11,8 @@ import { BiCategory, BiLogIn, BiLogOut } from 'react-icons/bi'
 
 function Navbar() {
     const loginStatus = localStorage.getItem('Login')
-
     return (
         <div>
-
             <div className="menu_style">
                 <ul>
                     <li>

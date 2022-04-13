@@ -16,6 +16,9 @@ const EditUser = (props) => {
     })
     const id = editData.state._id
     console.log("props++", id);
+    let token = JSON.parse(localStorage.getItem('Login'))
+    console.log("token", token);
+
 
     const handleChange = (e) => {
         let { name, value } = e.target
@@ -29,7 +32,11 @@ const EditUser = (props) => {
         if (obj.phoneNumber !== "" && obj.password !== "") {
             let header = { mobile_number: obj.phoneNumber, password: obj.password }
             try {
-                await axios.put(`${URL}/${id}`, header)
+                await axios.put(`${URL}/register/${id}`, header, {
+                    headers: {
+                        'x-access-token': token,
+                    }
+                })
                     .then((res) => {
                         toast.error(res.data.message)
                         console.log("++++++++++", res);

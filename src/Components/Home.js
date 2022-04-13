@@ -4,8 +4,9 @@ import Navbar from './Navbar/Navbar';
 import img from './assets/images/home.jpg'
 
 function Home() {
- 
-     
+    window.onbeforeunload = () => {
+        localStorage.removeItem('Login');
+      }
     return (
         <div>
         <Navbar/>
